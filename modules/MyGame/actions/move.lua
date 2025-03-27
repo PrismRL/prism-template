@@ -24,7 +24,6 @@ function Move:_canPerform(level, destination)
 --- @param level Level
 --- @param destination Vector2
 function Move:_perform(level, destination)
-   local mover = self.owner:expectComponent(prism.components.Mover)
    level:moveActor(self.owner, destination)
 end
 
