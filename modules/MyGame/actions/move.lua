@@ -1,5 +1,5 @@
 ---@type SRDAction
-local SRDAction = require "example_srd.actions.srdaction"
+local SRDAction = require "modules.MyGame.actions.srdaction"
 
 local PointTarget = prism.Target:extend("PointTarget")
 PointTarget.typesAllowed = { Point = true }

@@ -1,8 +1,8 @@
 --- @type AttackData
-local AttackData = require "example_srd.attackdata"
+local AttackData = require "attackdata"
 
 --- @type DiceData
-local DiceData = require "example_srd.dice.dice"
+local DiceData = require "dice.dice"
 
 --- @class PlayerActor : Actor
 local Player = prism.Actor:extend("PlayerActor")

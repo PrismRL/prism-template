@@ -1,7 +1,7 @@
 -- Set up our turn logic.
-require "example_srd.turn"
+require "turn"
 
-local keybindings = require "example_srd.keybindingschema"
+local keybindings = require "keybindingschema"
 
 --- @class SRDLevelState : LevelState
 --- @field path Path

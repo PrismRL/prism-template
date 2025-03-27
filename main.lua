@@ -1,9 +1,22 @@
-require "spectrum"
-require "geometer"
+if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
+   require("lldebugger").start()
+end
 
-prism.loadModule("spectrum")
-prism.loadModule("example_srd")
-prism.loadModule("geometer")
+if os.getenv "LOCAL_LUA_DEBUGGER_VSCODE" == "1" then
+   local lldebugger = require "lldebugger"
+   lldebugger.start()
+   local run = love.run
+   function love.run(...)
+       local f = lldebugger.call(run, false, ...)
+       return function(...) return lldebugger.call(f, false, ...) end
+   end
+end
+
+require "prism"
+print "WTF"
+
+prism.loadModule("prism/spectrum")
+prism.loadModule("modules/MyGame")
 
 local mapbuilder = prism.MapBuilder(prism.cells.Wall)
 mapbuilder:drawRectangle(0, 0, 32, 32, prism.cells.Wall)
@@ -21,12 +34,12 @@ local sensesSystem = prism.systems.Senses()
 local sightSystem = prism.systems.Sight()
 local level = prism.Level(map, actors, { sensesSystem, sightSystem })
 
-local TestGenerator = require "example_srd.generators.test"
+local TestGenerator = require "generators.test"
 local manager = spectrum.StateManager()
 
-local SRDLevelState = require "example_srd.gamestates.srdlevelstate"
+local SRDLevelState = require "gamestates.srdlevelstate"
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
-local actionHandlers = require "example_srd.display.actionhandlers"
+local actionHandlers = require "display.actionhandlers"
 
 function love.load()
    manager:push(SRDLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level), actionHandlers))
@@ -37,6 +50,7 @@ function love.draw()
 end
 
 function love.update(dt)
+   print "YA!"
    manager:update(dt)
 end
 

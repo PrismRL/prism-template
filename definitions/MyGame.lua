@@ -1,0 +1,25 @@
+---@meta modules/mygame
+--- @module "modules.MyGame.cells.floor"
+prism.cells.Floor = nil
+--- @module "modules.MyGame.cells.pit"
+prism.cells.Pit = nil
+--- @module "modules.MyGame.cells.wall"
+prism.cells.Wall = nil
+--- @module "modules.MyGame.actions.attack"
+prism.actions.Attack = nil
+--- @module "modules.MyGame.actions.endturn"
+prism.actions.EndTurn = nil
+--- @module "modules.MyGame.actions.move"
+prism.actions.Move = nil
+--- @module "modules.MyGame.actions.srdaction"
+prism.actions.SRDAction = nil
+--- @module "modules.MyGame.components.banditcontroller"
+prism.components.BanditController = nil
+--- @module "modules.MyGame.components.sight"
+prism.components.Sight = nil
+--- @module "modules.MyGame.components.srdstats"
+prism.components.SRDStats = nil
+--- @module "modules.MyGame.actors.bandit"
+prism.actors.Bandit = nil
+--- @module "modules.MyGame.actors.player"
+prism.actors.Player = nil

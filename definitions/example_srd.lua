@@ -1,0 +1,1 @@
+---@meta example_srd

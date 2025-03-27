@@ -1,4 +1,4 @@
-local BanditBehavior = require "example_srd.behaviors.bandit"
+local BanditBehavior = require "modules.MyGame.behaviors.bandit"
 
 --- @class BanditControllerComponent : ControllerComponent
 --- @field root BTRoot

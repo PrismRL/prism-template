@@ -1,4 +1,4 @@
-local PathfindBehavior = require "example_srd.behaviors.pathfind"
+local PathfindBehavior = require "modules.MyGame.behaviors.pathfind"
 
 --- @class BanditBehavior : BTRoot
 local BanditBehavior = prism.BehaviorTree.Root:extend "BanditBehavior"

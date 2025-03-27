@@ -1,7 +1,7 @@
-local AttackData = require "example_srd.attackdata"
+local AttackData = require "attackdata"
 
 ---@type SRDAction
-local SRDAction = require "example_srd.actions.srdaction"
+local SRDAction = require "modules.MyGame.actions.srdaction"
 
 --- @class AttackDataTarget : Target
 local AttackDataTarget = prism.Target:extend("AttackDataTarget")

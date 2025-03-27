@@ -1,4 +1,4 @@
-local DiceRoll = require "example_srd.dice.diceroll"
+local DiceRoll = require "dice.diceroll"
 
 --- A data object that describes a dice roll of uni-sided dice, like 2d4 or 3d8 or 4d100.
 ---@class DiceData : Object

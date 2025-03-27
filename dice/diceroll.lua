@@ -1,4 +1,4 @@
-local Die = require "example_srd.dice.die"
+local Die = require "dice.die"
 
 --- @class DiceRoll : Object
 --- @field dice [Die]
