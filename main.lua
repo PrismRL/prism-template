@@ -13,9 +13,9 @@ if os.getenv "LOCAL_LUA_DEBUGGER_VSCODE" == "1" then
 end
 
 require "prism"
-print "WTF"
 
 prism.loadModule("prism/spectrum")
+prism.loadModule("modules/Sight")
 prism.loadModule("modules/MyGame")
 
 local mapbuilder = prism.MapBuilder(prism.cells.Wall)
@@ -38,7 +38,7 @@ local TestGenerator = require "generators.test"
 local manager = spectrum.StateManager()
 
 local SRDLevelState = require "gamestates.srdlevelstate"
-local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
+local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
 local actionHandlers = require "display.actionhandlers"
 
 function love.load()
@@ -50,7 +50,6 @@ function love.draw()
 end
 
 function love.update(dt)
-   print "YA!"
    manager:update(dt)
 end
 

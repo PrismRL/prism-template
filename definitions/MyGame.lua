@@ -15,8 +15,6 @@ prism.actions.Move = nil
 prism.actions.SRDAction = nil
 --- @module "modules.MyGame.components.banditcontroller"
 prism.components.BanditController = nil
---- @module "modules.MyGame.components.sight"
-prism.components.Sight = nil
 --- @module "modules.MyGame.components.srdstats"
 prism.components.SRDStats = nil
 --- @module "modules.MyGame.actors.bandit"
