@@ -1,2 +1,2 @@
-# examplesrd
-A tiny example game used for testing in prism.
+# prism template
+A template to help you get started using prism.
