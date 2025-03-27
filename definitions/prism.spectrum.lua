@@ -1,1 +1,0 @@
----@meta prism.spectrum

@@ -1,0 +1,22 @@
+{
+    "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+    "runtime.version": "LuaJIT",
+    "hint.enable": false,
+    "Lua.format.defaultConfig": {
+        "indent_style": "space",
+        "indent_size": "3"
+    },
+    "diagnostics.globals": [
+        "love",
+        "prism",
+        "spectrum",
+        "geometer"
+    ],
+    "Lua.workspace.library": [
+        "${3rd}/love2d/library"
+    ],
+    "Lua.workspace.ignoreDir": [
+        "lib"
+    ],
+    "completion.autoRequire": false
+}

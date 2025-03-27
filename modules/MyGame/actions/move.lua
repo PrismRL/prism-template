@@ -1,52 +1,31 @@
----@type SRDAction
-local SRDAction = require "modules.MyGame.actions.srdaction"
-
 local PointTarget = prism.Target:extend("PointTarget")
 PointTarget.typesAllowed = { Point = true }
 PointTarget.range = 1
 
----@class MoveAction : SRDAction
+---@class MoveAction : Action
 ---@field name string
----@field silent boolean
 ---@field targets Target[]
 ---@field previousPosition Vector2
-local Move = SRDAction:extend("MoveAction")
+local Move = prism.Action:extend("MoveAction")
 Move.name = "move"
-Move.silent = true
 Move.targets = { PointTarget }
-Move.stripName = true
 Move.requiredComponents = {
    prism.components.Controller,
-   prism.components.SRDStats
+   prism.components.Mover,
 }
 
-function Move:movePointCost(level, actor)
-   return 1
-end
+--- @param level Level
+--- @param destination Vector2
+function Move:_canPerform(level, destination)
+   local mover = self.owner:expectComponent(prism.components.Mover)
+   return level:getCellPassable(destination.x, destination.y, mover.mask)
+ end
 
-function Move:actionSlot()
-   return nil
-end
-
-function Move:canPerform(level)
-   local destination = self:getTarget(1)
-   local stats = self.owner:getComponent(prism.components.SRDStats)
-   if not stats then return false end
-
-   return level:getCellPassable(destination.x, destination.y, stats.mask) and prism.actions.SRDAction.canPerform(self, level)
-end
-
-function Move:perform(level)
-   --- @type Vector2
-   local destination = self:getTarget(1)
-   local stats = self.owner:getComponent(prism.components.SRDStats)
-   --- @cast stats SRDStatsComponent
-
-   assert(self.owner:getPosition():distanceChebyshev(destination) == 1)
-   assert(level:getCellPassable(destination.x, destination.y, stats.mask))
-
-   self.previousPosition = self.owner:getPosition()
-   level:moveActor(self.owner, destination, false)
+--- @param level Level
+--- @param destination Vector2
+function Move:_perform(level, destination)
+   local mover = self.owner:expectComponent(prism.components.Mover)
+   level:moveActor(self.owner, destination)
 end
 
 return Move

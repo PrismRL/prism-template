@@ -18,33 +18,37 @@ prism.loadModule("prism/spectrum")
 prism.loadModule("modules/Sight")
 prism.loadModule("modules/MyGame")
 
+-- build a basic test map
 local mapbuilder = prism.MapBuilder(prism.cells.Wall)
 mapbuilder:drawRectangle(0, 0, 32, 32, prism.cells.Wall)
 mapbuilder:drawRectangle(1, 1, 31, 31, prism.cells.Floor)
 mapbuilder:drawRectangle(5, 5, 7, 7, prism.cells.Wall)
 mapbuilder:drawRectangle(20, 20, 25, 25, prism.cells.Pit)
 
+-- create and add the player
 mapbuilder:addActor(prism.actors.Player(), 12, 12)
-mapbuilder:addActor(prism.actors.Player(), 16, 16)
-mapbuilder:addActor(prism.actors.Bandit(), 19, 19)
 
+-- bake the map down
 local map, actors = mapbuilder:build()
 
+-- initialize the level
 local sensesSystem = prism.systems.Senses()
 local sightSystem = prism.systems.Sight()
 local level = prism.Level(map, actors, { sensesSystem, sightSystem })
 
-local TestGenerator = require "generators.test"
+-- spin up our state machine
 local manager = spectrum.StateManager()
 
-local SRDLevelState = require "gamestates.srdlevelstate"
+-- Grab our level state and sprite atlas.
+local MyGameLevelState = require "gamestates.MyGamelevelstate"
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
-local actionHandlers = require "display.actionhandlers"
 
+-- we put out levelstate on top here, but you could create a main menu
 function love.load()
-   manager:push(SRDLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level), actionHandlers))
+   manager:push(MyGameLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)))
 end
 
+-- passing love events to our statemachine
 function love.draw()
    manager:draw()
 end
