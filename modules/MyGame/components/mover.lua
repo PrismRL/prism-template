@@ -1,6 +1,5 @@
 --- @class MoverComponent : Component
---- @field range integer How many tiles can this actor see?
---- @field fov boolean
+--- @field mask Bitmask
 local Mover = prism.Component:extend( "MoverComponent" )
 Mover.name = "Mover"
 
