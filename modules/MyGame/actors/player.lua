@@ -4,7 +4,7 @@ Player.name = "Player"
 
 function Player:initialize()
    return {
-      prism.components.Drawable(string.byte("@") + 1, prism.Color4(0, 1, 0, 1)),
+      prism.components.Drawable(string.byte("@") + 1, prism.Color4.GREEN, prism.Color4.BLACK),
       prism.components.Collider(),
       prism.components.PlayerController(),
       prism.components.Senses(),

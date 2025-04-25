@@ -41,6 +41,7 @@ local manager = spectrum.StateManager()
 
 -- Grab our level state and sprite atlas.
 local MyGameLevelState = require "gamestates.MyGamelevelstate"
+love.graphics.setDefaultFilter("nearest", "nearest")
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
 
 -- we put out levelstate on top here, but you could create a main menu

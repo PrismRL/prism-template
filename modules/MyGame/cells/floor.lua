@@ -4,6 +4,6 @@ Floor.name = "Floor"
 Floor.passable = true
 Floor.opaque = false
 Floor.drawable = prism.components.Drawable(string.byte(".") + 1)
-Floor.allowedMovetypes = { "walk" }
+Floor.allowedMovetypes = { "walk", "fly" }
 
 return Floor
