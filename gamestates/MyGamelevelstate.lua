@@ -11,6 +11,14 @@ end
 
 function MyGameLevelState:update(dt)
    spectrum.LevelState.update(self, dt)
+
+   if not self.decision or not self.decision.actor then
+      return
+   end
+
+   local cellSize = self.display.cellSize
+   local ax, ay = self.decision.actor:getPosition():decompose()
+   self.display.camera:centerOn(ax * cellSize.x, ay * cellSize.y)
 end
 
 function MyGameLevelState:drawBeforeCells(display)
