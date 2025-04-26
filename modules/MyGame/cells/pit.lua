@@ -1,9 +1,12 @@
 ---@class PitCell : Cell
 local Pit = prism.Cell:extend("PitCell")
 Pit.name = "Pit"
-Pit.passable = true
-Pit.opaque = false
-Pit.drawable = prism.components.Drawable(string.byte(" ") + 1)
-Pit.allowedMovetypes = { "fly" }
+
+function Pit:initialize()
+  return {
+    prism.components.Drawable(string.byte(" ") + 1),
+    prism.components.Collider({ allowedMovetypes = { "fly" }})
+  }
+end
 
 return Pit
