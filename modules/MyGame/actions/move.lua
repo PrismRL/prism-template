@@ -1,6 +1,12 @@
 local PointTarget = prism.Target:extend("PointTarget")
-PointTarget.typesAllowed = { Point = true }
-PointTarget.range = 1
+
+--- @param owner Actor
+--- @param targetObject any
+function PointTarget:validate(owner, targetObject)
+   return 
+      targetObject:is(prism.Vector2) and
+      owner:getRangeVec("8way", targetObject) == 1
+end
 
 ---@class MoveAction : Action
 ---@field name string
