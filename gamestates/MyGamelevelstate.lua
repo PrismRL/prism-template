@@ -9,6 +9,10 @@ function MyGameLevelState:__new(level, display, actionHandlers)
    spectrum.LevelState.__new(self, level, display, actionHandlers)
 end
 
+function MyGameLevelState:update(dt)
+   spectrum.LevelState.update(self, dt)
+end
+
 function MyGameLevelState:drawBeforeCells(display)
    -- add functionality!
 end
