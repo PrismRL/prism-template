@@ -18,6 +18,7 @@ function MyGameLevelState:update(dt)
 
    local cellSize = self.display.cellSize
    local ax, ay = self.decision.actor:getPosition():decompose()
+   self.display.camera.scale = prism.Vector2(1, 1)
    self.display.camera:centerOn(ax * cellSize.x, ay * cellSize.y)
 end
 
