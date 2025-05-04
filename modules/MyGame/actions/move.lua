@@ -5,7 +5,7 @@ local PointTarget = prism.Target:extend("PointTarget")
 function PointTarget:validate(owner, targetObject)
    return 
       targetObject:is(prism.Vector2) and
-      owner:getRangeVec("8way", targetObject) == 1
+      owner:getRangeVec(targetObject) == 1
 end
 
 ---@class MoveAction : Action

@@ -6,6 +6,7 @@ if os.getenv "LOCAL_LUA_DEBUGGER_VSCODE" == "1" then
    local lldebugger = require "lldebugger"
    lldebugger.start()
    local run = love.run
+   --- @diagnostic disable-next-line
    function love.run(...)
        local f = lldebugger.call(run, false, ...)
        return function(...) return lldebugger.call(f, false, ...) end
@@ -43,42 +44,11 @@ local manager = spectrum.StateManager()
 local MyGameLevelState = require "gamestates.MyGamelevelstate"
 love.graphics.setDefaultFilter("nearest", "nearest")
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
+local display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
 
 -- we put out levelstate on top here, but you could create a main menu
+--- @diagnostic disable-next-line
 function love.load()
-   manager:push(MyGameLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)))
+   manager:push(MyGameLevelState(level, display))
+   manager:hook()
 end
-
--- passing love events to our statemachine
-function love.draw()
-   manager:draw()
-end
-
-function love.update(dt)
-   manager:update(dt)
-end
-
-function love.keypressed(key, scancode)
-   manager:keypressed(key, scancode)
-end
-
-function love.textinput(text)
-   manager:textinput(text)
-end
-
-function love.mousepressed(x, y, button, istouch, presses)
-   manager:mousepressed(x, y, button, istouch, presses)
-end
-
-function love.mousereleased(x, y, button)
-   manager:mousereleased(x, y, button)
-end
-
-function love.mousemoved(x, y, dx, dy, istouch)
-   manager:mousemoved(x, y, dx, dy, istouch)
-end
-
-function love.wheelmoved(x, y)
-   manager:wheelmoved(x, y)
-end
-
