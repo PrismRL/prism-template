@@ -12,8 +12,10 @@ function SightSystem:onSenses(level, actor)
    -- check if actor has a sight component and if not return
    local sensesComponent = actor:getComponent(prism.components.Senses)
    if not sensesComponent then return end
+   --- @cast sensesComponent SensesComponent
 
    local sightComponent = actor:getComponent(prism.components.Sight)
+   if not sightComponent then return end
    local sightLimit = sightComponent.range
 
    local actorPos = actor:getPosition()
@@ -45,8 +47,9 @@ function SightSystem:updateSeenActors(level, actor)
    -- clear the actor visibility table
    sensesComponent.actors = prism.ActorStorage()
 
+   local query = level:query()
    for x, y, _ in sensesComponent.cells:each() do
-      for other in level:eachActorAt(x, y) do
+      for other in query:at(x, y):iter() do
          sensesComponent.actors:addActor(other)
       end
    end
