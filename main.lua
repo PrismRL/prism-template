@@ -37,6 +37,7 @@ local sightSystem = prism.systems.Sight()
 local level = prism.Level(map, actors, { sensesSystem, sightSystem })
 
 -- spin up our state machine
+--- @type GameStateManager
 local manager = spectrum.StateManager()
 
 -- Grab our level state and sprite atlas.
@@ -46,39 +47,6 @@ local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png"
 
 -- we put out levelstate on top here, but you could create a main menu
 function love.load()
+   manager:hook()
    manager:push(MyGameLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)))
 end
-
--- passing love events to our statemachine
-function love.draw()
-   manager:draw()
-end
-
-function love.update(dt)
-   manager:update(dt)
-end
-
-function love.keypressed(key, scancode)
-   manager:keypressed(key, scancode)
-end
-
-function love.textinput(text)
-   manager:textinput(text)
-end
-
-function love.mousepressed(x, y, button, istouch, presses)
-   manager:mousepressed(x, y, button, istouch, presses)
-end
-
-function love.mousereleased(x, y, button)
-   manager:mousereleased(x, y, button)
-end
-
-function love.mousemoved(x, y, dx, dy, istouch)
-   manager:mousemoved(x, y, dx, dy, istouch)
-end
-
-function love.wheelmoved(x, y)
-   manager:wheelmoved(x, y)
-end
-
