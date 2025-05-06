@@ -6,6 +6,7 @@ if os.getenv "LOCAL_LUA_DEBUGGER_VSCODE" == "1" then
    local lldebugger = require "lldebugger"
    lldebugger.start()
    local run = love.run
+   --- @diagnostic disable-next-line
    function love.run(...)
        local f = lldebugger.call(run, false, ...)
        return function(...) return lldebugger.call(f, false, ...) end
@@ -44,9 +45,11 @@ local manager = spectrum.StateManager()
 local MyGameLevelState = require "gamestates.MyGamelevelstate"
 love.graphics.setDefaultFilter("nearest", "nearest")
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
+local display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
 
 -- we put out levelstate on top here, but you could create a main menu
+--- @diagnostic disable-next-line
 function love.load()
+   manager:push(MyGameLevelState(level, display))
    manager:hook()
-   manager:push(MyGameLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)))
 end
