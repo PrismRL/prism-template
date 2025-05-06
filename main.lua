@@ -38,6 +38,7 @@ local sightSystem = prism.systems.Sight()
 local level = prism.Level(map, actors, { sensesSystem, sightSystem })
 
 -- spin up our state machine
+--- @type GameStateManager
 local manager = spectrum.StateManager()
 
 -- Grab our level state and sprite atlas.
