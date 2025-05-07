@@ -1,3 +1,5 @@
+-- We set up local lua debugger, this is optional but suggested!
+
 if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
    require("lldebugger").start()
 end

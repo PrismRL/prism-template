@@ -3,7 +3,7 @@
 --- @field fov boolean
 local Sight = prism.Component:extend( "SightComponent" )
 Sight.name = "Sight"
-Sight.requirements = { prism.components.Senses }
+Sight.requirements = { "SensesComponent" }
 
 --- @param options {range: integer, fov: boolean}
 function Sight:__new(options)
