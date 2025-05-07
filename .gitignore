@@ -1,3 +1,7 @@
-definitions/*
-.vscode/
+.*
+
+!.gitignore
+!.gitmodules
+!.luarc.json
+
 build/
