@@ -3,9 +3,21 @@ local keybindings = require "keybindingschema"
 --- @class MyGameLevelState : LevelState
 --- @field path Path
 --- @field level Level
+--- @overload fun(mapbuilder: MapBuilder): MyGameLevelState
 local MyGameLevelState = spectrum.LevelState:extend "MyGameLevelState"
 
-function MyGameLevelState:__new(level, display, actionHandlers)
+--- @param mapbuilder MapBuilder
+---@param actionHandlers any More on these later.
+function MyGameLevelState:__new(mapbuilder, actionHandlers)
+   local map, actors = mapbuilder:build()
+   local level = prism.Level(map, actors, {
+      prism.systems.Senses(),
+      prism.systems.Sight()
+   })
+
+   local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
+   local display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
+
    spectrum.LevelState.__new(self, level, display, actionHandlers)
 end
 
