@@ -16,8 +16,8 @@ local Move = prism.Action:extend("Move")
 Move.name = "move"
 Move.targets = { PointTarget }
 Move.requiredComponents = {
-   "Controller",
-   "Mover"
+   prism.components.Controller,
+   prism.components.Mover
 }
 
 --- @param level Level
