@@ -8,16 +8,16 @@ function PointTarget:validate(owner, targetObject)
       owner:getRangeVec(targetObject) == 1
 end
 
----@class MoveAction : Action
+---@class Move : Action
 ---@field name string
 ---@field targets Target[]
 ---@field previousPosition Vector2
-local Move = prism.Action:extend("MoveAction")
+local Move = prism.Action:extend("Move")
 Move.name = "move"
 Move.targets = { PointTarget }
 Move.requiredComponents = {
-   prism.components.Controller,
-   prism.components.Mover,
+   "Controller",
+   "Mover"
 }
 
 --- @param level Level

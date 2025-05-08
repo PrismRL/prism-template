@@ -1,6 +1,5 @@
----@class PitCell : Cell
-local Pit = prism.Cell:extend("PitCell")
-Pit.name = "Pit"
+---@class Pit : Cell
+local Pit = prism.Cell:extend("Pit")
 
 function Pit:initialize()
   return {

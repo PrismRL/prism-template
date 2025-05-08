@@ -1,6 +1,5 @@
---- @class PlayerActor : Actor
-local Player = prism.Actor:extend("PlayerActor")
-Player.name = "Player"
+--- @class Player : Actor
+local Player = prism.Actor:extend "PlayerActor"
 
 function Player:initialize()
    return {

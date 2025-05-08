@@ -1,6 +1,5 @@
----@class WaitAction : Action
-local Wait = prism.Action:extend("WaitAction")
-Wait.name = "Wait"
+---@class Wait : Action
+local Wait = prism.Action:extend("Wait")
 
 function Wait:_canPerform()
   return true

@@ -1,9 +1,8 @@
---- @class SightComponent : Component
+--- @class Sight : Component
 --- @field range integer How many tiles can this actor see?
 --- @field fov boolean
-local Sight = prism.Component:extend( "SightComponent" )
-Sight.name = "Sight"
-Sight.requirements = { "SensesComponent" }
+local Sight = prism.Component:extend("Sight")
+Sight.requirements = { "Senses" }
 
 --- @param options {range: integer, fov: boolean}
 function Sight:__new(options)
