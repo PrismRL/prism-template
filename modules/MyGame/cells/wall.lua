@@ -1,6 +1,5 @@
---- @class WallCell : Cell
-local Wall = prism.Cell:extend("WallCell")
-Wall.name = "Wall" -- displayed in the user interface
+--- @class Wall : Cell
+local Wall = prism.Cell:extend("Wall")
 
 function Wall:initialize()
   return {

@@ -1,6 +1,5 @@
----@class FloorCell : Cell
-local Floor = prism.Cell:extend("FloorCell")
-Floor.name = "Floor"
+---@class Floor : Cell
+local Floor = prism.Cell:extend("Floor")
 
 function Floor:initialize()
   return {
