@@ -17,6 +17,6 @@ local manager = spectrum.StateManager()
 -- we put out levelstate on top here, but you could create a main menu
 --- @diagnostic disable-next-line
 function love.load()
-   manager:push(MyGameLevelState(mapbuilder))
+   manager:push(MyGameLevelState())
    manager:hook()
 end
