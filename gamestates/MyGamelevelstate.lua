@@ -15,27 +15,15 @@ function MyGameLevelState:__new(mapbuilder, actionHandlers)
       prism.systems.Sight()
    })
 
-   local spriteAtlas = spectrum.SpriteAtlas.fromGrid("display/wanderlust_16x16.png", 16, 16)
-   local display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
+   local spriteAtlas = spectrum.SpriteAtlas.fromASCIIGrid("display/wanderlust_16x16.png", 16, 16)
+   local display = spectrum.Display(81, 41, spriteAtlas, prism.Vector2(16, 16))
+   display:fitWindowToTerminal()
 
    spectrum.LevelState.__new(self, level, display, actionHandlers)
 end
 
-function MyGameLevelState:update(dt)
-   spectrum.LevelState.update(self, dt)
-
-   if not self.decision or not self.decision.actor then
-      return
-   end
-
-   local cellSize = self.display.cellSize
-   local ax, ay = self.decision.actor:getPosition():decompose()
-   self.display.camera.scale = prism.Vector2(1, 1)
-   self.display.camera:centerOn(ax * cellSize.x, ay * cellSize.y)
-end
-
-function MyGameLevelState:drawBeforeCells(display)
-   -- add functionality!
+function MyGameLevelState:terminalDraw()
+   self.display:put(1, 1, "w")
 end
 
 local keybindOffsets = {
@@ -51,12 +39,12 @@ local keybindOffsets = {
 }
 
 function MyGameLevelState:keypressed(key, scancode)
-   if key == "`" then
-      self.manager:push(self.geometer)
-   end
-
    if not self.decision or not self.decision:is(prism.decisions.ActionDecision) then
       return
+   end
+
+   if key == "`" then
+      self.manager:push(self.geometer)
    end
 
    local decision = self.decision

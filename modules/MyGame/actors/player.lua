@@ -3,7 +3,7 @@ local Player = prism.Actor:extend "PlayerActor"
 
 function Player:initialize()
    return {
-      prism.components.Drawable(string.byte("@") + 1, prism.Color4.GREEN, prism.Color4.BLACK),
+      prism.components.Drawable("@", prism.Color4.GREEN),
       prism.components.Collider(),
       prism.components.PlayerController(),
       prism.components.Senses(),
