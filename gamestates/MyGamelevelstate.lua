@@ -6,17 +6,16 @@ local keybindings = require "keybindingschema"
 ---
 --- @field path Path
 --- @field level Level
---- @overload fun(): MyGameLevelState
+--- @overload fun(display: Display): MyGameLevelState
 local MyGameLevelState = spectrum.LevelState:extend "MyGameLevelState"
 
-function MyGameLevelState:__new()
+--- @param display Display
+function MyGameLevelState:__new(display)
    -- Construct a simple test map using MapBuilder.
    -- In a complete game, you'd likely extract this logic to a separate module
    -- and pass in an existing player object between levels.
-
    local mapbuilder = prism.MapBuilder(prism.cells.Wall)
 
-   -- Draw the outer walls of the level
    mapbuilder:drawRectangle(0, 0, 32, 32, prism.cells.Wall)
    -- Fill the interior with floor tiles
    mapbuilder:drawRectangle(1, 1, 31, 31, prism.cells.Floor)
@@ -35,13 +34,8 @@ function MyGameLevelState:__new()
       prism.systems.Sight(),
    })
 
-   -- Load a sprite atlas and configure the terminal-style display
-   local spriteAtlas = spectrum.SpriteAtlas.fromASCIIGrid("display/wanderlust_16x16.png", 16, 16)
-   local display = spectrum.Display(81, 41, spriteAtlas, prism.Vector2(16, 16))
 
-   -- Automatically size the window to match the terminal dimensions
-   display:fitWindowToTerminal()
-
+   print(display)
    -- Initialize with the created level and display, the heavy lifting is done by
    -- the parent class.
    spectrum.LevelState.__new(self, level, display)
@@ -50,13 +44,17 @@ end
 function MyGameLevelState:handleMessage(message)
    spectrum.LevelState.handleMessage(self, message)
 
-   -- Handle any messages sent to the level state.
+   -- Handle any messages sent to the level state from the level. LevelState
+   -- handles a few built-in messages for you, like the decision you fill out
+   -- here.
+
    -- This is where you'd process custom messages like advancing to the next
    -- level or triggering a game over.
 end
 
-function MyGameLevelState:_draw(primary, secondary)
-   -- Center the camera on the active actor
+--- @param primary Senses[] { curActor:getComponent(prism.components.Senses)}
+---@param secondary Senses[]
+function MyGameLevelState:drawTerminal(primary, secondary)
    local position = self.decision.actor:getPosition()
    local x, y = self.display:getCenterOffset(position:decompose())
    self.display:setCamera(x, y)
@@ -77,7 +75,6 @@ function MyGameLevelState:draw()
 end
 
 -- Maps string actions from the keybinding schema to directional vectors.
--- These vectors are used to calculate movement destinations.
 local keybindOffsets = {
    ["move up"] = prism.Vector2.UP,
    ["move left"] = prism.Vector2.LEFT,
@@ -115,14 +112,10 @@ function MyGameLevelState:keypressed(key, scancode)
       end
    end
 
-   -- Handle waiting as a fallback or deliberate action
+   -- Handle waiting
    if action == "wait" then
       decision:setAction(prism.actions.Wait(self.decision.actor))
    end
-end
-
-function MyGameLevelState:mousepressed(x, y, button, istouch, presses)
-   -- Handle mouse input here (if needed)
 end
 
 return MyGameLevelState
