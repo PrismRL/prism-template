@@ -54,24 +54,25 @@ end
 
 --- @param primary Senses[] { curActor:getComponent(prism.components.Senses)}
 ---@param secondary Senses[]
-function MyGameLevelState:drawTerminal(primary, secondary)
+function MyGameLevelState:draw(primary, secondary)
+   self.display:clear()
+
    local position = self.decision.actor:getPosition()
    local x, y = self.display:getCenterOffset(position:decompose())
    self.display:setCamera(x, y)
 
+   local primary, secondary = self:getSenses()
    -- Render the level using the actor’s senses
    self.display:putSenses(primary, secondary)
 
+   -- custom terminal drawing goes here!
+   
    -- Say hello!
    self.display:putString(1, 1, "Hello prism!")
-end
 
-function MyGameLevelState:draw()
-   -- Perform default draw behavior, calling _draw above after
-   -- some bookkeeping
-   spectrum.LevelState.draw(self)
+   self.display:draw()
 
-   -- Add any custom Love2D drawing code here!
+   -- custom love2d drawing goes here!
 end
 
 -- Maps string actions from the keybinding schema to directional vectors.
