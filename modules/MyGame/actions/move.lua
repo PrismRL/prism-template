@@ -15,10 +15,12 @@ end
 local Move = prism.Action:extend("Move")
 Move.name = "move"
 Move.targets = { PointTarget }
-Move.requiredComponents = {
-   prism.components.Controller,
-   prism.components.Mover
-}
+
+function Move:getRequirements()
+   return 
+      prism.components.Controller,
+      prism.components.Mover
+end
 
 --- @param level Level
 --- @param destination Vector2
