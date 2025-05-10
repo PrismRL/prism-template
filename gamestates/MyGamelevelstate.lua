@@ -106,7 +106,7 @@ function MyGameLevelState:keypressed(key, scancode)
       local owner = self.decision.actor
       local destination = owner:getPosition() + keybindOffsets[action]
 
-      local move = prism.actions.Move(owner, { destination })
+      local move = prism.actions.Move(owner, destination)
       if move:canPerform(self.level) then
          decision:setAction(move)
          return
