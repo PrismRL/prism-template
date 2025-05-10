@@ -4,7 +4,10 @@
 local SightSystem = prism.System:extend("SightSystem")
 SightSystem.name = "Sight"
 
-SightSystem.requirements = { "Senses" }
+function SightSystem:getRequirements()
+   return prism.systems.Senses
+end
+
 -- These functions update the fov and visibility of actors on the level.
 ---@param level Level
 ---@param actor Actor
@@ -12,7 +15,7 @@ function SightSystem:onSenses(level, actor)
    -- check if actor has a sight component and if not return
    local sensesComponent = actor:getComponent(prism.components.Senses)
    if not sensesComponent then return end
-   --- @cast sensesComponent SensesComponent
+   ---@cast sensesComponent Senses
 
    local sightComponent = actor:getComponent(prism.components.Sight)
    if not sightComponent then return end
@@ -56,7 +59,7 @@ function SightSystem:updateSeenActors(level, actor)
 end
 
 ---@param level Level
----@param sensesComponent SensesComponent
+---@param sensesComponent Senses
 ---@param origin Vector2
 ---@param maxDepth integer
 function SightSystem.computeFOV(level, sensesComponent, origin, maxDepth)

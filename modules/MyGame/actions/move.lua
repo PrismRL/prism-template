@@ -3,21 +3,19 @@ local PointTarget = prism.Target:extend("PointTarget")
 --- @param owner Actor
 --- @param targetObject any
 function PointTarget:validate(owner, targetObject)
-   return 
+   return
       targetObject:is(prism.Vector2) and
       owner:getRangeVec(targetObject) == 1
 end
 
 ---@class Move : Action
----@field name string
----@field targets Target[]
 ---@field previousPosition Vector2
 local Move = prism.Action:extend("Move")
 Move.name = "move"
 Move.targets = { PointTarget }
 Move.requiredComponents = {
-   "Controller",
-   "Mover"
+   prism.components.Controller,
+   prism.components.Mover
 }
 
 --- @param level Level

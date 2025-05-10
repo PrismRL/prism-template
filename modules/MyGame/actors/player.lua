@@ -1,5 +1,5 @@
 --- @class Player : Actor
-local Player = prism.Actor:extend "PlayerActor"
+local Player = prism.Actor:extend "Player"
 
 function Player:initialize()
    return {
@@ -7,7 +7,7 @@ function Player:initialize()
       prism.components.Collider(),
       prism.components.PlayerController(),
       prism.components.Senses(),
-      prism.components.Sight { range = 64, fov = true },
+      prism.components.Sight{ range = 64, fov = true },
       prism.components.Mover{ "walk" }
    }
 end
