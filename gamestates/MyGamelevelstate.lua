@@ -35,7 +35,6 @@ function MyGameLevelState:__new(display)
    })
 
 
-   print(display)
    -- Initialize with the created level and display, the heavy lifting is done by
    -- the parent class.
    spectrum.LevelState.__new(self, level, display)
@@ -70,6 +69,11 @@ function MyGameLevelState:draw(primary, secondary)
    -- Say hello!
    self.display:putString(1, 1, "Hello prism!")
 
+   -- Actually render the terminal out and present it to the screen.
+   -- You could use love2d to translate and say center a smaller terminal or
+   -- offset it for custom non-terminal UI elements. If you do scale the UI
+   -- just remember that display:getCellUnderMouse expects the mouse in the
+   -- display's local pixel coordinates
    self.display:draw()
 
    -- custom love2d drawing goes here!
@@ -90,20 +94,19 @@ local keybindOffsets = {
 -- The input handling functions act as the player controller’s logic.
 -- You should NOT mutate the Level here directly. Instead, find a valid
 -- action and set it in the decision object. It will then be executed by
--- the level.
+-- the level. This is a similar pattern to the example KoboldController.
 function MyGameLevelState:keypressed(key, scancode)
    -- handles opening geometer for us
    spectrum.LevelState.keypressed(self, key, scancode)
 
    local decision = self.decision
-   ---@cast decision ActionDecision
+   local owner = decision.actor
 
    -- Resolve the action string from the keybinding schema
    local action = keybindings:keypressed(key)
 
    -- Attempt to translate the action into a directional move
    if keybindOffsets[action] then
-      local owner = self.decision.actor
       local destination = owner:getPosition() + keybindOffsets[action]
 
       local move = prism.actions.Move(owner, destination)
@@ -113,7 +116,7 @@ function MyGameLevelState:keypressed(key, scancode)
       end
    end
 
-   -- Handle waiting
+   -- Wait is a no op, skip turn.
    if action == "wait" then
       decision:setAction(prism.actions.Wait(self.decision.actor))
    end
