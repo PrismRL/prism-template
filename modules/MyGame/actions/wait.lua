@@ -1,12 +1,10 @@
 ---@class Wait : Action
 local Wait = prism.Action:extend("Wait")
 
-function Wait:_canPerform()
-  return true
+function Wait:canPerform()
+   return true
 end
 
-function Wait:_perform(level)
-end
+function Wait:perform(level) end
 
 return Wait
-

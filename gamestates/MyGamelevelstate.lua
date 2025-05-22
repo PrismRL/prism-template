@@ -34,7 +34,6 @@ function MyGameLevelState:__new(display)
       prism.systems.Sight(),
    })
 
-
    -- Initialize with the created level and display, the heavy lifting is done by
    -- the parent class.
    spectrum.LevelState.__new(self, level, display)
@@ -65,7 +64,7 @@ function MyGameLevelState:draw(primary, secondary)
    self.display:putSenses(primary, secondary)
 
    -- custom terminal drawing goes here!
-   
+
    -- Say hello!
    self.display:putString(1, 1, "Hello prism!")
 
@@ -110,16 +109,14 @@ function MyGameLevelState:keypressed(key, scancode)
       local destination = owner:getPosition() + keybindOffsets[action]
 
       local move = prism.actions.Move(owner, destination)
-      if move:canPerform(self.level) then
+      if self.level:canPerform(move) then
          decision:setAction(move)
          return
       end
    end
 
-   -- Wait is a no op, skip turn.
-   if action == "wait" then
-      decision:setAction(prism.actions.Wait(self.decision.actor))
-   end
+   -- Handle waiting
+   if action == "wait" then decision:setAction(prism.actions.Wait(self.decision.actor)) end
 end
 
 return MyGameLevelState

@@ -8,7 +8,7 @@ function Player:initialize()
       prism.components.PlayerController(),
       prism.components.Senses(),
       prism.components.Sight { range = 64, fov = true },
-      prism.components.Mover{ "walk" }
+      prism.components.Mover { "walk" },
    }
 end
 
