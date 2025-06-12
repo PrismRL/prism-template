@@ -15,5 +15,7 @@
     "Lua.workspace.library": [
         "prism"
     ],
-    "completion.autoRequire": false
+    "completion.autoRequire": false,
+    "type.weakUnionCheck": true
+
 }
