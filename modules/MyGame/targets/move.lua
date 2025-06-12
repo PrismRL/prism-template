@@ -1,5 +1,0 @@
-prism.registerTarget("Move", function()
-    return prism.Target()
-        :isPrototype(prism.Vector2)
-        :range(1)
-end)

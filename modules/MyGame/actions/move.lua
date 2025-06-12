@@ -1,10 +1,14 @@
+local MoveTarget = prism.Target()
+   :isPrototype(prism.Vector2)
+   :range(1)
+
 ---@class Move : Action
 ---@field name string
 ---@field targets Target[]
 ---@field previousPosition Vector2
 local Move = prism.Action:extend("Move")
 Move.name = "move"
-Move.targets = { prism.targets.Move() }
+Move.targets = { MoveTarget }
 
 function Move:getRequirements()
    return prism.components.Controller, prism.components.Mover
