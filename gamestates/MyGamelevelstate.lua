@@ -56,6 +56,8 @@ function MyGameLevelState:draw(primary, secondary)
    self.display:clear()
 
    local position = self.decision.actor:getPosition()
+   if not position then return end
+   
    local x, y = self.display:getCenterOffset(position:decompose())
    self.display:setCamera(x, y)
 
@@ -99,6 +101,8 @@ function MyGameLevelState:keypressed(key, scancode)
    spectrum.LevelState.keypressed(self, key, scancode)
 
    local decision = self.decision
+   if not decision then return end
+
    local owner = decision.actor
 
    -- Resolve the action string from the keybinding schema

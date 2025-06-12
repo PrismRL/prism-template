@@ -1,8 +1,6 @@
---- @class Player : Actor
-local Player = prism.Actor:extend "PlayerActor"
-
-function Player:initialize()
-   return {
+prism.registerActor("Player", function()
+   return prism.Actor.fromComponents {
+      prism.components.Position(),
       prism.components.Drawable("@", prism.Color4.GREEN),
       prism.components.Collider(),
       prism.components.PlayerController(),
@@ -10,6 +8,4 @@ function Player:initialize()
       prism.components.Sight { range = 64, fov = true },
       prism.components.Mover { "walk" },
    }
-end
-
-return Player
+end)

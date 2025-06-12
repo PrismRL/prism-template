@@ -1,12 +1,7 @@
---- @class Wall : Cell
-local Wall = prism.Cell:extend("Wall")
-
-function Wall:initialize()
-   return {
+prism.registerCell("Wall", function ()
+   return prism.Cell.fromComponents {
       prism.components.Drawable("#"),
       prism.components.Collider(),
       prism.components.Opaque(),
    }
-end
-
-return Wall
+end)

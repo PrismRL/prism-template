@@ -1,11 +1,6 @@
----@class Floor : Cell
-local Floor = prism.Cell:extend("Floor")
-
-function Floor:initialize()
-   return {
+prism.registerCell("Floor", function()
+   return prism.Cell.fromComponents {
       prism.components.Drawable("."),
       prism.components.Collider({ allowedMovetypes = { "walk", "fly" } }),
    }
-end
-
-return Floor
+end)

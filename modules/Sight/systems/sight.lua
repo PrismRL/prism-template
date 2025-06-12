@@ -13,16 +13,17 @@ end
 ---@param actor Actor
 function SightSystem:onSenses(level, actor)
    -- check if actor has a sight component and if not return
-   local sensesComponent = actor:getComponent(prism.components.Senses)
+   local sensesComponent = actor:get(prism.components.Senses)
    if not sensesComponent then return end
    --- @cast sensesComponent Senses
 
-   local sightComponent = actor:getComponent(prism.components.Sight)
+   local sightComponent = actor:get(prism.components.Sight)
    if not sightComponent then return end
    local sightLimit = sightComponent.range
 
    local actorPos = actor:getPosition()
-
+   if not actorPos then return end
+   
    -- we check if the sight component has a fov and if so we clear it
    if sightComponent.fov then
       local sightLimit = sightComponent.range
@@ -44,7 +45,7 @@ end
 ---@param actor Actor
 function SightSystem:updateSeenActors(level, actor)
    -- if we don't have a sight component we return
-   local sensesComponent = actor:getComponent(prism.components.Senses)
+   local sensesComponent = actor:get(prism.components.Senses)
    if not sensesComponent then return end
 
    -- clear the actor visibility table
