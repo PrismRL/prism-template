@@ -57,7 +57,7 @@ function MyGameLevelState:draw(primary, secondary)
 
    local position = self.decision.actor:getPosition()
    if not position then return end
-   
+
    local x, y = self.display:getCenterOffset(position:decompose())
    self.display:setCamera(x, y)
 
