@@ -2,7 +2,7 @@ require "debugger"
 require "prism"
 
 prism.loadModule("prism/spectrum")
-prism.loadModule("prism/extras/sight")
+prism.loadModule("prism/extra/sight")
 prism.loadModule("modules/game")
 
 -- Grab our level state and sprite atlas.
