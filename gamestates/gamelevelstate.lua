@@ -53,6 +53,8 @@ end
 --- @param primary Senses[] { curActor:getComponent(prism.components.Senses)}
 ---@param secondary Senses[]
 function MyGameLevelState:draw(primary, secondary)
+   if not self.decision then return end
+   
    self.display:clear()
 
    local position = self.decision.actor:getPosition()
