@@ -14,29 +14,25 @@ function GameLevelState:__new(display)
    -- Construct a simple test map using MapBuilder.
    -- In a complete game, you'd likely extract this logic to a separate module
    -- and pass in an existing player object between levels.
-   local mapbuilder = prism.MapBuilder(prism.cells.Wall)
+   local builder = prism.LevelBuilder(prism.cells.Wall)
 
-   mapbuilder:drawRectangle(0, 0, 32, 32, prism.cells.Wall)
+   builder:rectangle("line", 0, 0, 32, 32, prism.cells.Wall)
    -- Fill the interior with floor tiles
-   mapbuilder:drawRectangle(1, 1, 31, 31, prism.cells.Floor)
+   builder:rectangle("fill", 1, 1, 31, 31, prism.cells.Floor)
    -- Add a small block of walls within the map
-   mapbuilder:drawRectangle(5, 5, 7, 7, prism.cells.Wall)
+   builder:rectangle("fill", 5, 5, 7, 7, prism.cells.Wall)
    -- Add a pit area to the southeast
-   mapbuilder:drawRectangle(20, 20, 25, 25, prism.cells.Pit)
+   builder:rectangle("fill", 20, 20, 25, 25, prism.cells.Pit)
 
    -- Place the player character at a starting location
-   mapbuilder:addActor(prism.actors.Player(), 12, 12)
+   builder:addActor(prism.actors.Player(), 12, 12)
 
-   -- Build the map and instantiate the level with systems
-   local map, actors = mapbuilder:build()
-   local level = prism.Level(map, actors, {
-      prism.systems.Senses(),
-      prism.systems.Sight(),
-   })
+   -- Add systems
+   builder:addSystems(prism.systems.Senses(), prism.systems.Sight())
 
    -- Initialize with the created level and display, the heavy lifting is done by
    -- the parent class.
-   spectrum.LevelState.__new(self, level, display)
+   spectrum.LevelState.__new(self, builder:build(), display)
 end
 
 function GameLevelState:handleMessage(message)
@@ -115,14 +111,11 @@ function GameLevelState:keypressed(key, scancode)
       local destination = owner:getPosition() + keybindOffsets[action]
 
       local move = prism.actions.Move(owner, destination)
-      if self.level:canPerform(move) then
-         decision:setAction(move)
-         return
-      end
+      if decision:setAction(move, self.level) then return end
    end
 
    -- Handle waiting
-   if action == "wait" then decision:setAction(prism.actions.Wait(self.decision.actor)) end
+   if action == "wait" then decision:setAction(prism.actions.Wait(self.decision.actor), self.level) end
 end
 
 return GameLevelState
