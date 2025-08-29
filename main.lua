@@ -24,4 +24,5 @@ local manager = spectrum.StateManager()
 function love.load()
    manager:push(GameLevelState(display))
    manager:hook()
+   spectrum.Input:hook()
 end

@@ -1,4 +1,4 @@
-local keybindings = require "keybindingschema"
+local controls = require "controls"
 
 --- @class GameLevelState : LevelState
 --- A custom game level state responsible for initializing the level map,
@@ -46,9 +46,22 @@ function GameLevelState:handleMessage(message)
    -- level or triggering a game over.
 end
 
---- @param primary Senses[] { curActor:getComponent(prism.components.Senses)}
----@param secondary Senses[]
-function GameLevelState:draw(primary, secondary)
+-- updateDecision is called whenever there's an ActionDecision to handle.
+function GameLevelState:updateDecision(dt, owner, decision)
+   -- Controls need to be updated each frame.
+   controls:update()
+
+   -- Controls are accessed directly via table index.
+   if controls.move.pressed then
+      local destination = owner:getPosition() + controls.move.vector
+      local move = prism.actions.Move(owner, destination)
+      if decision:setAction(move, self.level) then return end
+   end
+
+   if controls.wait.pressed then decision:setAction(prism.actions.Wait(self.decision.actor), self.level) end
+end
+
+function GameLevelState:draw()
    if not self.decision then return end
 
    self.display:clear()
@@ -78,44 +91,9 @@ function GameLevelState:draw(primary, secondary)
    -- custom love2d drawing goes here!
 end
 
--- Maps string actions from the keybinding schema to directional vectors.
-local keybindOffsets = {
-   ["move up"] = prism.Vector2.UP,
-   ["move left"] = prism.Vector2.LEFT,
-   ["move down"] = prism.Vector2.DOWN,
-   ["move right"] = prism.Vector2.RIGHT,
-   ["move up-left"] = prism.Vector2.UP_LEFT,
-   ["move up-right"] = prism.Vector2.UP_RIGHT,
-   ["move down-left"] = prism.Vector2.DOWN_LEFT,
-   ["move down-right"] = prism.Vector2.DOWN_RIGHT,
-}
-
--- The input handling functions act as the player controller’s logic.
--- You should NOT mutate the Level here directly. Instead, find a valid
--- action and set it in the decision object. It will then be executed by
--- the level. This is a similar pattern to the example KoboldController.
-function GameLevelState:keypressed(key, scancode)
-   -- handles opening geometer for us
-   spectrum.LevelState.keypressed(self, key, scancode)
-
-   local decision = self.decision
-   if not decision then return end
-
-   local owner = decision.actor
-
-   -- Resolve the action string from the keybinding schema
-   local action = keybindings:keypressed(key)
-
-   -- Attempt to translate the action into a directional move
-   if keybindOffsets[action] then
-      local destination = owner:getPosition() + keybindOffsets[action]
-
-      local move = prism.actions.Move(owner, destination)
-      if decision:setAction(move, self.level) then return end
-   end
-
-   -- Handle waiting
-   if action == "wait" then decision:setAction(prism.actions.Wait(self.decision.actor), self.level) end
+function GameLevelState:resume()
+   -- Run senses when we resume from e.g. Geometer.
+   self.level:getSystem(prism.systems.Senses):postInitialize(self.level)
 end
 
 return GameLevelState
