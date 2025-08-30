@@ -1,0 +1,15 @@
+name = "prism-template"
+# lovejs (web) builds will be supported soon!
+default_targets = ["win32", "win64", "appimage"]
+build_directory = "makelove-build"
+
+love_version = "11.4"
+
+love_files = [
+    "::git-ls-tree::",
+    "./prism/engine/",
+    "./prism/extra/",
+    "./prism/spectrum/",
+    "./prism/geometer/",
+    "-*/.*",
+]
