@@ -55,7 +55,7 @@ function GameLevelState:updateDecision(dt, owner, decision)
    if controls.move.pressed then
       local destination = owner:getPosition() + controls.move.vector
       local move = prism.actions.Move(owner, destination)
-      if decision:setAction(move, self.level) then return end
+      if self:setAction(move) then return end
    end
 
    if controls.wait.pressed then decision:setAction(prism.actions.Wait(self.decision.actor), self.level) end

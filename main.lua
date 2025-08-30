@@ -9,6 +9,7 @@ prism.loadModule("modules/game")
 local GameLevelState = require "gamestates.gamelevelstate"
 
 -- Load a sprite atlas and configure the terminal-style display,
+love.graphics.setDefaultFilter("nearest", "nearest")
 local spriteAtlas = spectrum.SpriteAtlas.fromASCIIGrid("display/wanderlust_16x16.png", 16, 16)
 local display = spectrum.Display(81, 41, spriteAtlas, prism.Vector2(16, 16))
 
