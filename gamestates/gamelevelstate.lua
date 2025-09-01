@@ -62,19 +62,23 @@ function GameLevelState:updateDecision(dt, owner, decision)
 end
 
 function GameLevelState:draw()
-   if not self.decision then return end
-
    self.display:clear()
 
-   local position = self.decision.actor:getPosition()
-   if not position then return end
+   local player = self.level:query(prism.components.PlayerController):first()
 
-   local x, y = self.display:getCenterOffset(position:decompose())
-   self.display:setCamera(x, y)
+   if not player then
+      -- You would normally transition to a game over state
+      self.display:putLevel(self.level)
+   else
+      local position = player:expectPosition()
 
-   local primary, secondary = self:getSenses()
-   -- Render the level using the actor’s senses
-   self.display:putSenses(primary, secondary)
+      local x, y = self.display:getCenterOffset(position:decompose())
+      self.display:setCamera(x, y)
+
+      local primary, secondary = self:getSenses()
+      -- Render the level using the player’s senses
+      self.display:putSenses(primary, secondary)
+   end
 
    -- custom terminal drawing goes here!
 
