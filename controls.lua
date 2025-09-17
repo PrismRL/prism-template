@@ -6,7 +6,7 @@ return spectrum.Input.Controls {
       -- If no prefix is given, the control is assumed to be a key.
       -- Controls can also be combinations of inputs, e.g. "lshift a" or "lctrl s".
       -- See the LÖVE wiki for all of the constants.
-      move_upleft    = { "q", "y", "mouse:1" },
+      move_upleft    = { "q", "y" },
       move_up        = { "w", "k", "axis:lefty+" },
       move_upright   = { "e", "u" },
       move_left      = { "a", "h", "axis:leftx-" },
