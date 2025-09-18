@@ -4,8 +4,6 @@ local controls = require "controls"
 --- A custom game level state responsible for initializing the level map,
 --- handling input, and drawing the state to the screen.
 ---
---- @field path Path
---- @field level Level
 --- @overload fun(display: Display): GameLevelState
 local GameLevelState = spectrum.LevelState:extend "GameLevelState"
 
