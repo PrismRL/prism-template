@@ -56,7 +56,7 @@ function GameLevelState:updateDecision(dt, owner, decision)
       if self:setAction(move) then return end
    end
 
-   if controls.wait.pressed then decision:setAction(prism.actions.Wait(self.decision.actor), self.level) end
+   if controls.wait.pressed then self:setAction(prism.actions.Wait(owner)) end
 end
 
 function GameLevelState:draw()
