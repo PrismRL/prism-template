@@ -5,7 +5,7 @@ local controls = require "controls"
 --- handling input, and drawing the state to the screen.
 ---
 --- @overload fun(display: Display): GameLevelState
-local GameLevelState = spectrum.LevelState:extend "GameLevelState"
+local GameLevelState = spectrum.gamestates.LevelState:extend "GameLevelState"
 
 --- @param display Display
 function GameLevelState:__new(display)
@@ -26,15 +26,15 @@ function GameLevelState:__new(display)
    builder:addActor(prism.actors.Player(), 12, 12)
 
    -- Add systems
-   builder:addSystems(prism.systems.Senses(), prism.systems.Sight())
+   builder:addSystems(prism.systems.SensesSystem(), prism.systems.SightSystem())
 
    -- Initialize with the created level and display, the heavy lifting is done by
    -- the parent class.
-   spectrum.LevelState.__new(self, builder:build(), display)
+   self.super.__new(self, builder:build(), display)
 end
 
 function GameLevelState:handleMessage(message)
-   spectrum.LevelState.handleMessage(self, message)
+   self.super.handleMessage(self, message)
 
    -- Handle any messages sent to the level state from the level. LevelState
    -- handles a few built-in messages for you, like the decision you fill out
@@ -81,7 +81,7 @@ function GameLevelState:draw()
    -- custom terminal drawing goes here!
 
    -- Say hello!
-   self.display:putString(1, 1, "Hello prism!")
+   self.display:print(1, 1, "Hello prism!")
 
    -- Actually render the terminal out and present it to the screen.
    -- You could use love2d to translate and say center a smaller terminal or
@@ -95,7 +95,7 @@ end
 
 function GameLevelState:resume()
    -- Run senses when we resume from e.g. Geometer.
-   self.level:getSystem(prism.systems.Senses):postInitialize(self.level)
+   self.level:getSystem(prism.systems.SensesSystem):postInitialize(self.level)
 end
 
 return GameLevelState
