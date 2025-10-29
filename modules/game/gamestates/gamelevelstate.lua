@@ -12,7 +12,7 @@ function GameLevelState:__new(display)
    -- Construct a simple test map using MapBuilder.
    -- In a complete game, you'd likely extract this logic to a separate module
    -- and pass in an existing player object between levels.
-   local builder = prism.LevelBuilder(prism.cells.Wall)
+   local builder = prism.LevelBuilder()
 
    builder:rectangle("line", 0, 0, 32, 32, prism.cells.Wall)
    -- Fill the interior with floor tiles
@@ -30,7 +30,7 @@ function GameLevelState:__new(display)
 
    -- Initialize with the created level and display, the heavy lifting is done by
    -- the parent class.
-   self.super.__new(self, builder:build(), display)
+   self.super.__new(self, builder:build(prism.cells.Wall), display)
 end
 
 function GameLevelState:handleMessage(message)
