@@ -2,6 +2,7 @@ require "debugger"
 require "prism"
 
 prism.loadModule("prism/spectrum")
+prism.loadModule("prism/geometer")
 prism.loadModule("prism/extra/sight")
 prism.loadModule("modules/game")
 
