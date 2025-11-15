@@ -75,7 +75,9 @@ function GameLevelState:draw()
 
       local primary, secondary = self:getSenses()
       -- Render the level using the player’s senses
+      self.display:beginCamera()
       self.display:putSenses(primary, secondary, self.level)
+      self.display:endCamera()
    end
 
    -- custom terminal drawing goes here!
