@@ -3,6 +3,7 @@
 !.gitignore
 !.gitmodules
 !.luarc.json
+!.vscode
 
 build/
 makelove-build/
