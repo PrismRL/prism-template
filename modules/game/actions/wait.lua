@@ -1,4 +1,5 @@
----@class Wait : Action
+--- @class Wait : Action
+--- @overload fun(owner: Actor): Wait
 local Wait = prism.Action:extend("Wait")
 
 function Wait:canPerform()
